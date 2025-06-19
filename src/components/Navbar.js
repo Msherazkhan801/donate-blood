@@ -10,12 +10,13 @@ export default function Navbar() {
     <div className="font-sans">
       <nav className="flex items-center justify-between px-8 py-4 shadow-md bg-white relative">
         {/* Logo + Brand */}
-        <div className="flex items-center justify-center space-x-2">
+        <Link href="/" > <div className="flex items-center justify-center space-x-2">
           <img src="/assets/images/logo.png" alt="logo" className="h-12 w-12" />
           <span className="text-xl font-bold">
             Donate <span className="text-red-600">Blood</span>
           </span>
         </div>
+        </Link>
 
         {/* Desktop Nav */}
         <ul className="hidden md:flex space-x-8 text-gray-800 font-medium">

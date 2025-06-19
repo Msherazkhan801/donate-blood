@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import { FaHeart, FaUsers } from 'react-icons/fa'
 
@@ -12,12 +13,14 @@ const Hero = () => {
           life-savers and make a difference in someone’s life today.
         </p>
         <div className="flex justify-center space-x-4">
-          <button className="flex items-center bg-red-600 text-white px-6 py-3 rounded font-semibold hover:bg-red-700 transition">
+        <Link href="/donate-blood" className="hover:text-red-600">  <button className="flex items-center bg-red-600 text-white px-6 py-3 rounded font-semibold hover:bg-red-700 transition">
             <FaHeart className="mr-2" /> Become a Donor
           </button>
-          <button className="flex items-center bg-white border border-gray-300 text-black px-6 py-3 rounded font-semibold hover:shadow-md transition">
-            <FaUsers className="mr-2" /> Request Blood
+          </Link>
+          <Link href='/request-blood'> <button className="flex items-center bg-white border border-gray-300 text-black px-6 py-3 rounded font-semibold hover:shadow-md transition">
+           <FaUsers className="mr-2" /> Request Blood
           </button>
+           </Link>
         </div>
       </section>
   )
