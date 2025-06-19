@@ -105,7 +105,7 @@ const Page = () => {
 
             <div className="text-center mt-6">
               <button type="submit" className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">
-                Submit
+                Register as Donar
               </button>
             </div>
           </form>
