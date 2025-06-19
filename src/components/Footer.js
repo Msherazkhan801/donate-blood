@@ -24,7 +24,6 @@ export default function Footer() {
             <li>Become a Donor</li>
             <li>Request Blood</li>
             <li>Find Donors</li>
-            <li>About Us</li>
           </ul>
         </div>
 
@@ -34,8 +33,7 @@ export default function Footer() {
           <ul className="text-gray-300 space-y-2">
             <li>FAQ</li>
             <li>Help Center</li>
-            <li>Privacy Policy</li>
-            <li>Terms of Service</li>
+          
           </ul>
         </div>
 
