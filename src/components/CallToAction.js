@@ -1,5 +1,6 @@
-'use client'
-import { FaUsers, FaAward } from 'react-icons/fa'
+"use client";
+import Link from "next/link";
+import { FaUsers, FaAward } from "react-icons/fa";
 
 export default function CallToAction() {
   return (
@@ -8,21 +9,25 @@ export default function CallToAction() {
         Ready to Save Lives?
       </h2>
       <p className="text-lg max-w-2xl mx-auto mb-10">
-        Join thousands of donors who have already made a difference. Your donation
-        could be the gift of life someone desperately needs.
+        Join thousands of donors who have already made a difference. Your
+        donation could be the gift of life someone desperately needs.
       </p>
 
       <div className="flex flex-col md:flex-row justify-center gap-6">
-        <button className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded shadow hover:bg-gray-100 transition font-semibold">
-          <FaUsers className="text-xl" />
-          Find Blood Donors
-        </button>
-
+        <Link href="/find-donor" className="hover:text-red-600">
+          {" "}
+          <button className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded shadow hover:bg-gray-100 transition font-semibold">
+            <FaUsers className="text-xl" />
+            Find Blood Donors
+          </button>
+        </Link>
+        <Link href="/donate-blood" className="cursor-pointer hover:text-red-600">
         <button className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded shadow hover:bg-gray-100 transition font-semibold">
           <FaAward className="text-xl" />
           Register as Donor
         </button>
+        </Link>
       </div>
     </section>
-  )
+  );
 }

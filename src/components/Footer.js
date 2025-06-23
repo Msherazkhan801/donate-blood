@@ -1,6 +1,7 @@
 'use client'
 import { FaCopyright } from 'react-icons/fa'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -21,9 +22,9 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="text-gray-300 space-y-2">
-            <li>Become a Donor</li>
-            <li>Request Blood</li>
-            <li>Find Donors</li>
+           <Link href='/donate-blood ' className=''> <li>Become a Donor</li></Link>
+             <Link href='/request-blood' className=''><li>Request Blood</li></Link> 
+             <Link href='/find-donor' className=''> <li>Find Donors</li></Link>
           </ul>
         </div>
 
@@ -41,7 +42,7 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact Us</h3>
           <ul className="text-gray-300 space-y-2">
-            <li>+92 3367879-98</li>
+            <li>+92 12345678</li>
             <li>contact@donateblood.com</li>
             <li>123 Health St, Medical City</li>
           </ul>

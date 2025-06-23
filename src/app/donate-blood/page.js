@@ -31,6 +31,8 @@ const Page = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Submitted data:', formData)
+    toast.success(' successfully!')
+    
 
     // You can now send `formData` via fetch/axios to your API
     // fetch('/api/submit', { method: 'POST', body: JSON.stringify(formData) })
@@ -93,8 +95,8 @@ const Page = () => {
             <Section title="Address Information" icon={<FaMapMarkerAlt />} description="Your location helps us match you with nearby recipients">
               <Input name="address" value={formData.address} onChange={handleChange} placeholder="Street Address *" />
               <Input name="city" value={formData.city} onChange={handleChange} placeholder="City *" />
-              <Input name="state" value={formData.state} onChange={handleChange} placeholder="State *" />
-              <Input name="zip" value={formData.zip} onChange={handleChange} placeholder="ZIP Code *" />
+              {/* <Input name="state" value={formData.state} onChange={handleChange} placeholder="State *" />
+              <Input name="zip" value={formData.zip} onChange={handleChange} placeholder="ZIP Code *" /> */}
             </Section>
 
             {/* Emergency Contact */}

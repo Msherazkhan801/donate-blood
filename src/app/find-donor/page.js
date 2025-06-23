@@ -52,13 +52,13 @@ export default function FindDonorPage() {
     const filtered = requests.filter((req) => {
       const matchBlood = bloodType === '' || bloodType === 'All types' || req.bloodType === bloodType
       const matchCity = city === '' || req.location.toLowerCase().includes(city.toLowerCase())
-      const matchDistance = distance === '' || parseFloat(req.distance) <= parseFloat(distance)
+      // const matchDistance = distance === '' || parseFloat(req.distance) <= parseFloat(distance)
 
-      return matchBlood && matchCity && matchDistance
+      return matchBlood && matchCity 
     })
 
     setFilteredRequests(filtered)
-      toast.success(' successfully!')
+    
   }
 
   return (
@@ -82,7 +82,7 @@ export default function FindDonorPage() {
           <p className="text-gray-600 mb-6 text-sm">Filter blood requests by location, blood type and distance</p>
 
           {/* Filters Grid */}
-          <form className="grid gap-4 md:grid-cols-3" onSubmit={handleSearch}>
+          <form className="grid gap-4 md:grid-cols-2" onSubmit={handleSearch}>
             <div>
               <label htmlFor="bloodType" className="block font-medium text-sm mb-1">Blood type</label>
               <select
@@ -113,21 +113,6 @@ export default function FindDonorPage() {
                 placeholder="Enter city"
                 className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
               />
-            </div>
-
-            <div>
-              <label htmlFor="distance" className="block font-medium text-sm mb-1">Distance (km)</label>
-              <select
-                id="distance"
-                value={distance}
-                onChange={(e) => setDistance(e.target.value)}
-                className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
-              >
-                <option value="">Any distance</option>
-                <option value="2">Within 2 km</option>
-                <option value="5">Within 5 km</option>
-                <option value="10">Within 10 km</option>
-              </select>
             </div>
 
             <div className="md:col-span-3 flex justify-center mt-4">

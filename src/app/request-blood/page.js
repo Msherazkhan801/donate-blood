@@ -79,8 +79,8 @@ const Page = () => {
             <Section title="Address Information" icon={<FaMapMarkerAlt />} description="Patient's location for proximity matching">
               <Input name="address" value={formData.address} onChange={handleChange} placeholder="Street Address *" />
               <Input name="city" value={formData.city} onChange={handleChange} placeholder="City *" />
-              <Input name="state" value={formData.state} onChange={handleChange} placeholder="State *" />
-              <Input name="zip" value={formData.zip} onChange={handleChange} placeholder="ZIP Code *" />
+              {/* <Input name="state" value={formData.state} onChange={handleChange} placeholder="State *" />
+              <Input name="zip" value={formData.zip} onChange={handleChange} placeholder="ZIP Code *" /> */}
             </Section>
 
             <div className="text-center mt-6">
