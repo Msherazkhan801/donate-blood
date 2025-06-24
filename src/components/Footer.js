@@ -27,7 +27,7 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Support</h3>
           <ul className="text-gray-300 space-y-2">
-            <li>FAQ</li>
+          <Link href='/faq ' className=''>  <li>FAQ</li></Link>
             <li>Help Center</li>
           
           </ul>
