@@ -1,9 +1,7 @@
 'use client'
 
-const bloodTypes = [
-  'A+', 'B+', 'AB+', 'O+', 
-  'A-', 'B-', 'AB-', 'O-'
-]
+import { bloodTypes } from "@/utils/Data"
+
 
 export default function BloodCompatibility() {
   return (

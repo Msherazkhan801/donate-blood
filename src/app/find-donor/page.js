@@ -43,7 +43,7 @@ const requests = [
 export default function FindDonorPage() {
   const [bloodType, setBloodType] = useState('')
   const [city, setCity] = useState('')
-  const [distance, setDistance] = useState('')
+  // const [distance, setDistance] = useState('')
   const [filteredRequests, setFilteredRequests] = useState(requests)
 
   const handleSearch = (e) => {
