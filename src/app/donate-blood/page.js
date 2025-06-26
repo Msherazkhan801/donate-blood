@@ -100,10 +100,7 @@ const Page = () => {
             </Section>
 
             {/* Emergency Contact */}
-            <Section title="Emergency Contact" icon={<FaPhone />} description="Someone we can contact in case of emergency">
-              <Input name="emergencyName" value={formData.emergencyName} onChange={handleChange} placeholder="Emergency Contact Name *" />
-              <Input name="emergencyPhone" value={formData.emergencyPhone} onChange={handleChange} placeholder="Emergency Contact Phone *" />
-            </Section>
+          
 
             <div className="text-center mt-6">
               <button type="submit" className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">

@@ -18,9 +18,10 @@ export default function BloodCompatibility() {
           <div
             key={index}
             className="bg-white border border-gray-200 rounded shadow-sm p-6 hover:shadow-md transition"
+            
           >
-            <h3 className="text-2xl font-extrabold text-red-600 mb-1">{type}</h3>
-            <p className="text-gray-800 font-medium">Blood Type</p>
+            <h3 className="text-2xl font-extrabold text-red-600 mb-1" >{type}</h3>
+            {/* <p className="text-gray-800 font-medium">Blood Type</p> */}
           </div>
         ))}
       </div>

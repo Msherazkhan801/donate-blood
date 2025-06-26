@@ -9,7 +9,6 @@ export default function Navbar() {
   return (
     <div className="font-sans">
       <nav className="flex items-center justify-between px-8 py-4 shadow-md bg-white relative">
-        {/* Logo + Brand */}
         <Link href="/" > <div className="flex items-center justify-center space-x-2">
           <img src="/assets/images/logo.png" alt="logo" className="h-12 w-12" />
           <span className="text-xl font-bold">
@@ -17,8 +16,6 @@ export default function Navbar() {
           </span>
         </div>
         </Link>
-
-        {/* Desktop Nav */}
         <ul className="hidden md:flex space-x-8 text-gray-800 font-medium">
           <li className="text-red-600">
                <Link href="/" >Home</Link></li>
@@ -29,16 +26,12 @@ export default function Navbar() {
             <Link href="/donate-blood" className="hover:text-red-600">Donate Blood</Link>
           </li>
         </ul>
-
-        {/* Desktop Button */}
         <Link
           href="/request-blood"
           className="hidden md:block bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
         >
           Request Blood
         </Link>
-
-        {/* Mobile Menu Icon */}
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? (
@@ -48,8 +41,6 @@ export default function Navbar() {
             )}
           </button>
         </div>
-
-        {/* Mobile Dropdown Menu */}
         {isOpen && (
           <div className="absolute top-20 left-0 w-full bg-white shadow-md md:hidden z-10">
             <ul className="flex flex-col items-start px-6 py-4 space-y-4 text-gray-800 font-medium">
