@@ -1,66 +1,54 @@
-'use client'
-import { useState } from 'react'
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
-import { FaFilter, FaSearch, FaTint, FaMapMarkerAlt, FaHospitalUser, FaPhoneAlt, FaHandHoldingMedical } from 'react-icons/fa'
-
-const requests = [
-  {
-    bloodType: 'B+',
-    units: 2,
-    patientName: 'Ahmed Ali',
-    location: 'Johar Town, Lahore',
-    hospital: 'Shaukat Khanum Hospital',
-    reason: 'Cancer treatment',
-    requiredBy: '2025-06-21',
-    distance: '2.1', // in km
-    urgent: true,
-  },
-  {
-    bloodType: 'O-',
-    units: 1,
-    patientName: 'Ali',
-    location: 'Model Town, Lahore',
-    hospital: 'Ittefaq Hospital',
-    reason: 'Accident emergency',
-    requiredBy: '2025-06-20',
-    distance: '4.3',
-    urgent: true,
-  },
-  {
-    bloodType: 'AB+',
-    units: 3,
-    patientName: 'Aslam',
-    location: 'Gulberg, Lahore',
-    hospital: 'Hameed Latif Hospital',
-    reason: 'Surgery required',
-    requiredBy: '2025-06-23',
-    distance: '3.6',
-    urgent: false,
-  },
-]
+"use client";
+import { useState } from "react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import {
+  FaFilter,
+  FaSearch,
+} from "react-icons/fa";
 
 export default function FindDonorPage() {
-  const [bloodType, setBloodType] = useState('')
-  const [city, setCity] = useState('')
-  // const [distance, setDistance] = useState('')
-  const [filteredRequests, setFilteredRequests] = useState(requests)
+  const [bloodType, setBloodType] = useState("");
+  const [city, setCity] = useState("");
+  const [filteredRequests, setFilteredRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSearch = (e) => {
-    e.preventDefault()
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const filtered = requests.filter((req) => {
-      const matchBlood = bloodType === '' || bloodType === 'All types' || req.bloodType === bloodType
-      const matchCity = city === '' || req.location.toLowerCase().includes(city.toLowerCase())
-      // const matchDistance = distance === '' || parseFloat(req.distance) <= parseFloat(distance)
+    try {
+      const requestBody = {
+        city: city,
+        bloodGroup: bloodType,
+      };
 
-      return matchBlood && matchCity 
-    })
+      const apiUrl = "http://10.214.24.149:3300/api/user/donors";
 
-    setFilteredRequests(filtered)
-    
-  }
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody), // Sending city and bloodGroup in the body
+      });
 
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const data = await response.json();
+      setFilteredRequests(data.data); // Assuming the response data is an array of requests
+    } catch (error) {
+      setError("An error occurred while fetching the data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
   return (
     <>
       <Navbar />
@@ -68,9 +56,13 @@ export default function FindDonorPage() {
         <div className="text-center mb-10">
           <div className="flex justify-center items-center gap-2 text-red-600 text-4xl">
             <FaSearch />
-            <h1 className="text-3xl md:text-4xl font-bold text-black">Find Blood Requests</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-black">
+              Find Blood Requests
+            </h1>
           </div>
-          <p className="text-gray-700 mt-2">Search for patients in need of blood donation in your area</p>
+          <p className="text-gray-700 mt-2">
+            Search for patients in need of blood donation in your area
+          </p>
         </div>
 
         {/* Search Filter Card */}
@@ -79,12 +71,19 @@ export default function FindDonorPage() {
             <FaFilter className="text-red-600 mr-2 text-xl" />
             Search Filters
           </div>
-          <p className="text-gray-600 mb-6 text-sm">Filter blood requests by location, blood type and distance</p>
+          <p className="text-gray-600 mb-6 text-sm">
+            Filter blood requests by location, blood type, and distance
+          </p>
 
           {/* Filters Grid */}
           <form className="grid gap-4 md:grid-cols-2" onSubmit={handleSearch}>
             <div>
-              <label htmlFor="bloodType" className="block font-medium text-sm mb-1">Blood type</label>
+              <label
+                htmlFor="bloodType"
+                className="block font-medium text-sm mb-1"
+              >
+                Blood type
+              </label>
               <select
                 id="bloodType"
                 value={bloodType}
@@ -103,16 +102,38 @@ export default function FindDonorPage() {
               </select>
             </div>
 
-            <div>
-              <label htmlFor="city" className="block font-medium text-sm mb-1">City</label>
-              <input
-                id="city"
-                type="text"
+            <div className="w-full">
+              <label htmlFor="city" className="block font-medium text-sm mb-1">
+                City
+              </label>
+              <select
+                name="city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter city"
                 className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
-              />
+              >
+                <option value="">Select City</option>
+                <option>Lahore</option>
+                <option>Karachi</option>
+                <option>Islamabad</option>
+                <option>Rawalpindi</option>
+                <option>Multan</option>
+                <option>Faisalabad</option>
+                <option>Gujranwala</option>
+                <option>Sialkot</option>
+                <option>Quetta</option>
+                <option>Peshawar</option>
+                <option>Hyderabad</option>
+                <option>Sukkur</option>
+                <option>Bahawalpur</option>
+                <option>Abbottabad</option>
+                <option>Mardan</option>
+                <option>Sargodha</option>
+                <option>Sheikhupura</option>
+                <option>Rahim Yar Khan</option>
+                <option>Sadiqabad</option>
+                <option>Dera Ghazi Khan</option>
+              </select>
             </div>
 
             <div className="md:col-span-3 flex justify-center mt-4">
@@ -121,7 +142,7 @@ export default function FindDonorPage() {
                 className="flex items-center gap-2 bg-red-600 text-white font-semibold px-6 py-3 rounded hover:bg-red-700 transition"
               >
                 <FaSearch />
-                Search Blood Request
+                {loading ? "Searching..." : "Search Blood Request"}
               </button>
             </div>
           </form>
@@ -134,45 +155,78 @@ export default function FindDonorPage() {
           Blood Requests ({filteredRequests.length} found)
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredRequests.map((req, idx) => (
-            <div key={idx} className="border rounded-lg p-4 shadow-sm hover:shadow-md transition">
-              <div className="flex justify-between items-start mb-2">
-                <div className="text-gray-800 font-semibold">
-                  <FaTint className="inline-block text-red-600 mr-1" />
-                  Blood Type: {req.bloodType}
-                </div>
-                {req.urgent && (
-                  <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-medium">
-                    Immediate
-                  </span>
-                )}
-              </div>
-              <p className="text-gray-700 mb-2">{req.units} unit(s) needed for {req.patientName}</p>
-              <p className="text-gray-600 flex items-center mb-1">
-                <FaMapMarkerAlt className="mr-2 text-gray-500" />
-                {req.location}
-              </p>
-              <p className="text-gray-600 flex items-center mb-1">
-                <FaHospitalUser className="mr-2 text-gray-500" />
-                <strong>{req.hospital}</strong> – {req.reason}
-              </p>
-              <p className="text-sm text-gray-500 mb-2">Required by: {req.requiredBy}</p>
-              <hr className="my-2" />
-              <p className="text-sm text-gray-600 mb-3">Distance: {req.distance} km</p>
-              <div className="flex gap-2">
-                <button className="flex items-center border border-gray-300 px-3 py-1 rounded text-sm hover:bg-gray-100">
-                  <FaPhoneAlt className="mr-2" /> Contact
-                </button>
-                <button className="flex items-center bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">
-                  <FaHandHoldingMedical className="mr-2" /> Donate Now
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Blood Requests Table / Cards */}
+        {filteredRequests.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+              <thead className="bg-red">
+                <tr className="bg-red-600 text-white font-bold">
+                  <th className="py-3 px-6 text-left text-sm">
+                    Name
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    email
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    Contact
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    Blood Type
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    City
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    DOB
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    Last Donation
+                  </th>
+                  <th className="py-3 px-6 text-left text-sm">
+                    Address
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredRequests.map((req, idx) => (
+                  <tr key={idx} className="border-b">
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.firstName} {req.lastName}{" "}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.email}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.phoneNumber}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.bloodGroup}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.city}
+                    </td>
+
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.dob ? req.dob : "--"}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.lastDonated ? req.lastDonated : "--"}
+                    </td>
+                    <td className="py-3 px-6 text-sm text-gray-600">
+                      {req.address ? req.address : "--"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-center text-gray-600">
+            No blood requests found for the selected filters.
+          </p>
+        )}
       </div>
       <Footer />
     </>
-  )
+  );
 }

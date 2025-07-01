@@ -19,8 +19,8 @@ const Hero = () => {
             <FaHeart className="mr-2" /> Become a Donor
           </button>
           </Link>
-          <Link href='/request-blood'> <button className="flex items-center bg-white border border-gray-300 text-black px-6 py-3 rounded font-semibold hover:shadow-md transition">
-           <FaUsers className="mr-2" /> Request Blood
+          <Link href='/find-donor'> <button className="flex items-center bg-white border border-gray-300 text-black px-6 py-3 rounded font-semibold hover:shadow-md transition">
+           <FaUsers className="mr-2" /> Find Donors
           </button>
            </Link>
         </div>

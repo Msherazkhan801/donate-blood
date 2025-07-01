@@ -21,7 +21,7 @@ export default function Footer() {
           <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="text-gray-300 space-y-2">
            <Link href='/donate-blood ' className=''> <li>Become a Donor</li></Link>
-             <Link href='/request-blood' className=''><li>Request Blood</li></Link> 
+             {/* <Link href='/request-blood' className=''><li>Request Blood</li></Link>  */}
              <Link href='/find-donor' className=''> <li>Find Donors</li></Link>
           </ul>
         </div>

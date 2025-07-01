@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import { FaUser, FaTint, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
+import { toast } from "react-toastify"; // Ensure that you have this library installed
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +14,6 @@ const Page = () => {
     dob: "",
     bloodType: "",
     lastDonation: "",
-    medical: "",
     address: "",
     city: "",
   });
@@ -23,13 +23,56 @@ const Page = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted data:", formData);
-    toast.success(" successfully!");
 
-    // You can now send `formData` via fetch/axios to your API
-    // fetch('/api/submit', { method: 'POST', body: JSON.stringify(formData) })
+    // Construct the form data based on your state
+    const formDataToSend = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: "12345678", // You might want to handle the password securely
+      type: "Donor",
+      city: formData.city,
+      bloodGroup: formData.bloodType,
+      phoneNumber:formData.phone,
+      address:formData.address,
+      dob:formData.dob,
+      lastDonated:formData.lastDonation
+    };
+
+    try {
+      const response = await fetch(
+        "http://10.214.24.149:3300/api/auth/register/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formDataToSend),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!");
+          setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        dob: "",
+        bloodType: "",
+        lastDonation: "",
+        address: "",
+        city: "",
+      });
+      } else {
+        toast.error(`Error: ${data.message || "Registration failed"}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -40,7 +83,6 @@ const Page = () => {
           <form onSubmit={handleSubmit}>
             <div className="text-center mb-10">
               <div className="text-5xl text-red-500 mb-2">❤️</div>
-
               <h1 className="text-3xl font-bold">Become a Blood Donor</h1>
               <p className="text-gray-600 mt-2">
                 Join our community of life-savers. Your donation can save up to
@@ -93,7 +135,7 @@ const Page = () => {
             <Section
               title="Medical Information"
               icon={<FaTint />}
-              description="Medical details required for safe blood donation, its include  Blood Types and Last Donations date."
+              description="Medical details required for safe blood donation, including Blood Types and Last Donation date."
             >
               <select
                 name="bloodType"
@@ -132,22 +174,43 @@ const Page = () => {
                 onChange={handleChange}
                 placeholder="Street Address *"
               />
-              <Input
+              <select
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                placeholder="City *"
-              />
+                className="input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
+              >
+                <option value="">Select City</option>
+                <option>Lahore</option>
+                <option>Karachi</option>
+                <option>Islamabad</option>
+                <option>Rawalpindi</option>
+                <option>Multan</option>
+                <option>Faisalabad</option>
+                <option>Gujranwala</option>
+                <option>Sialkot</option>
+                <option>Quetta</option>
+                <option>Peshawar</option>
+                <option>Hyderabad</option>
+                <option>Sukkur</option>
+                <option>Bahawalpur</option>
+                <option>Abbottabad</option>
+                <option>Mardan</option>
+                <option>Sargodha</option>
+                <option>Sheikhupura</option>
+                <option>Rahim Yar Khan</option>
+                <option>Sadiqabad</option>
+                <option>Dera Ghazi Khan</option>
+              </select>
             </Section>
 
-            {/* Emergency Contact */}
-
+            {/* Submit Button */}
             <div className="text-center mt-6">
               <button
                 type="submit"
                 className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
               >
-                Register as Donar
+                Register as Donor
               </button>
             </div>
           </form>
@@ -160,7 +223,7 @@ const Page = () => {
 
 export default Page;
 
-// Reusable input
+// Reusable input component
 const Input = ({ name, value, onChange, placeholder, type = "text" }) => (
   <input
     name={name}
@@ -172,7 +235,7 @@ const Input = ({ name, value, onChange, placeholder, type = "text" }) => (
   />
 );
 
-// Section wrapper
+// Section wrapper component
 const Section = ({ title, icon, description, children }) => (
   <section className="mb-8 border rounded-xl p-6 shadow-sm">
     <h2 className="text-xl font-semibold flex items-center gap-2 text-black">

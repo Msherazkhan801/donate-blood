@@ -2,11 +2,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
-import {
-  FaUserInjured,
-  FaTint,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaUserInjured, FaTint, FaMapMarkerAlt } from "react-icons/fa";
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -28,10 +24,44 @@ const Page = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted data:", formData);
-    // Send data to API here
+
+    // Construct the form data based on your state
+    const formDataToSend = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: "12345678", // You might want to handle the password securely
+      type: "Donor",
+      city: formData.city,
+      bloodGroup: formData.bloodType,
+      phone: formData.phone,
+      address: formData.address,
+      dob: formData.dob,
+    };
+
+    try {
+      const response = await fetch(
+        "http://192.168.1.77:3300/api/auth/register/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formDataToSend),
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Registration successful!");
+      } else {
+        toast.error(`Error: ${data.message || "Registration failed"}`);
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -167,7 +197,7 @@ const Input = ({ name, value, onChange, placeholder, type = "text" }) => (
     onChange={onChange}
     type={type}
     placeholder={placeholder}
-    className="input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
+    className="input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-600 "
   />
 );
 

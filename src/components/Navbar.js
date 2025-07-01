@@ -23,14 +23,13 @@ export default function Navbar() {
             <Link href="/find-donor" className="hover:text-red-600">Find Donors</Link>
           </li>
           <li>
-            <Link href="/donate-blood" className="hover:text-red-600">Donate Blood</Link>
           </li>
         </ul>
         <Link
-          href="/request-blood"
+          href="/donate-blood"
           className="hidden md:block bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
         >
-          Request Blood
+          Donate Blood
         </Link>
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)}>
@@ -49,15 +48,14 @@ export default function Navbar() {
                 <Link href="/find-donor" onClick={() => setIsOpen(false)}>Find Donors</Link>
               </li>
               <li>
-                <Link href="/donate-blood" onClick={() => setIsOpen(false)}>Donate Blood</Link>
               </li>
               <li>
                 <Link
-                  href="/request-blood"
+                  href="/donate-blood"
                   onClick={() => setIsOpen(false)}
                   className="w-full block bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
                 >
-                  Request Blood
+                 Donate Blood
                 </Link>
               </li>
             </ul>

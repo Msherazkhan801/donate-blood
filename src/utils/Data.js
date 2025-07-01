@@ -27,3 +27,5 @@ export const features = [
       'All donors and recipients are verified to ensure safety and authenticity.',
   },
 ]
+
+// const url=192.168.1.77
