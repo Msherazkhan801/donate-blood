@@ -11,8 +11,8 @@ export default function Navbar() {
       <nav className="flex items-center justify-between px-8 py-4 shadow-md bg-white relative">
         <Link href="/" > <div className="flex items-center justify-center space-x-2">
           <img src="/assets/images/logo.png" alt="logo" className="h-12 w-12" />
-          <span className="text-xl font-bold">
-            Donate <span className="text-red-600">Blood</span>
+          <span className="text-xl font-bold text-red-600">
+            Blood  <span className="text-black">donation Hub</span>
           </span>
         </div>
         </Link>
@@ -20,7 +20,7 @@ export default function Navbar() {
           <li className="text-red-600">
                <Link href="/" >Home</Link></li>
           <li>
-            <Link href="/find-donor" className="hover:text-red-600">Find Donors</Link>
+            <Link href="/find-donor" className="text-black hover:text-red-600">Find Donors</Link>
           </li>
           <li>
           </li>
